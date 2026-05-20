@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fleetify-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fleetify
+      MYSQL_USER: fleetify
+      MYSQL_PASSWORD: fleetify123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+    command: sh -c "./main seed && ./main"
+    container_name: fleetify-backend
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./backend/.env
+
+volumes:
+  mysql_data:
