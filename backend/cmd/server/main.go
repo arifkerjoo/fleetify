@@ -55,10 +55,22 @@ func main() {
 	userUsecase := usecase.NewUserUsecase(userRepo)
 	userHandler := handlers.NewUserHandler(userUsecase, jwtUtil)
 
+	//Vehicle
+	vehicleRepo := repositories.NewVehicleRepository(db)
+	vehicleUsecase := usecase.NewVehicleUsecase(vehicleRepo)
+	vehicleHandler := handlers.NewVehicleHandler(vehicleUsecase, jwtUtil)
+
+	//MasterItem
+	masterItemRepo := repositories.NewMasterItemRepository(db)
+	masterItemUsecase := usecase.NewMasterItemUsecase(masterItemRepo)
+	masterItemHandler := handlers.NewMasterItemHandler(masterItemUsecase, jwtUtil)
+
 	// Bundle handlers
 	h := &routes.Handlers{
-		Auth: authHandler,
-		User: userHandler,
+		Auth:       authHandler,
+		User:       userHandler,
+		Vehicle:    vehicleHandler,
+		MasterItem: masterItemHandler,
 	}
 
 	app := fiber.New(fiber.Config{

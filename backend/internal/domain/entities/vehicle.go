@@ -24,6 +24,15 @@ type Vehicle struct {
 	MaintenanceReports []MaintenanceReport `gorm:"foreignKey:VehicleID" json:"-"`
 }
 
+type VehicleResponse struct {
+	ID           uuid.UUID     `json:"id"`
+	LicensePlate string        `json:"license_plate"`
+	Brand        string        `json:"brand"`
+	Model        string        `json:"model"`
+	Year         int           `json:"year"`
+	Status       VehicleStatus `json:"status"`
+}
+
 func (v *Vehicle) BeforeCreate(tx *gorm.DB) error {
 	if v.ID == uuid.Nil {
 		v.ID = uuid.New()
@@ -33,4 +42,14 @@ func (v *Vehicle) BeforeCreate(tx *gorm.DB) error {
 
 func (Vehicle) TableName() string {
 	return "vehicles"
+}
+
+func (v *Vehicle) ToResponse() *VehicleResponse {
+	return &VehicleResponse{
+		LicensePlate: v.LicensePlate,
+		Brand:        v.Brand,
+		Model:        v.Model,
+		Year:         v.Year,
+		Status:       v.Status,
+	}
 }

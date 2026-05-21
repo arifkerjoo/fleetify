@@ -57,7 +57,7 @@ func (h *AuthHandler) RegisterRoutes(api fiber.Router) {
 		protected.Get("/profile", h.GetProfile)
 		protected.Post("/refresh-token", h.RefreshToken)
 		protected.Post("/logout", h.Logout)
-		protected.Get("/session", h.GetSession) // For Next.js to check session
+		protected.Get("/session", h.GetSession)
 	}
 
 	// Admin only routes
