@@ -60,7 +60,6 @@ func (r *userRepository) GetAllUsers(limit, offset int, search string) ([]entiti
 
 	query := r.db.Model(&entities.User{})
 
-	// Apply search filter
 	if search != "" {
 		searchPattern := "%" + search + "%"
 		query = query.Where(
@@ -69,12 +68,10 @@ func (r *userRepository) GetAllUsers(limit, offset int, search string) ([]entiti
 		)
 	}
 
-	// Count total
 	if err := query.Count(&total).Error; err != nil {
 		return nil, 0, err
 	}
 
-	// Get paginated results
 	if err := query.
 		Order("created_at DESC").
 		Limit(limit).

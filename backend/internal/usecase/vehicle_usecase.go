@@ -74,7 +74,7 @@ func (u *vehicleUsecase) GetVehicleByID(id uuid.UUID) (*entities.VehicleResponse
 func (u *vehicleUsecase) GetAllVehicles(limit, offset int, search string) ([]entities.VehicleResponse, int64, error) {
 	vehicles, total, err := u.vehicleRepo.GetAllVehicles(limit, offset, search)
 	if err != nil {
-		return nil, 0, errors.New("failed to fetch vehicles")
+		return nil, 0, errors.New("gagal fetch vehicles")
 	}
 
 	responses := make([]entities.VehicleResponse, len(vehicles))
@@ -102,7 +102,7 @@ func (u *vehicleUsecase) UpdateVehicle(id uuid.UUID, req UpdateVehicleRequest) (
 	}
 
 	if err := u.vehicleRepo.Update(vehicle); err != nil {
-		return nil, errors.New("failed to update vehicle")
+		return nil, errors.New("gagal update vehicle")
 	}
 
 	return vehicle.ToResponse(), nil
@@ -118,7 +118,7 @@ func (u *vehicleUsecase) DeleteVehicle(id uuid.UUID) error {
 	}
 
 	if err := u.vehicleRepo.Delete(id); err != nil {
-		return errors.New("failed to delete vehicle")
+		return errors.New("gagal delete vehicle")
 	}
 
 	return nil

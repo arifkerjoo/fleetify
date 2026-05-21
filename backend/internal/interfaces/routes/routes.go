@@ -8,10 +8,11 @@ import (
 )
 
 type Handlers struct {
-	Auth       *handlers.AuthHandler
-	User       *handlers.UserHandler
-	Vehicle    *handlers.VehicleHandler
-	MasterItem *handlers.MasterItemHandler
+	Auth              *handlers.AuthHandler
+	User              *handlers.UserHandler
+	Vehicle           *handlers.VehicleHandler
+	MasterItem        *handlers.MasterItemHandler
+	MaintenanceReport *handlers.MaintenanceReportHandler
 }
 
 func SetupRoutes(app *fiber.App, h *Handlers, jwtUtil *utils.JWTUtil) {
@@ -26,6 +27,9 @@ func SetupRoutes(app *fiber.App, h *Handlers, jwtUtil *utils.JWTUtil) {
 
 	MasterItemRoutes(api, h.MasterItem, jwtUtil)
 	h.MasterItem.RegisterRoutes(api)
+
+	MaintenanceReportRoutes(api, h.MaintenanceReport, jwtUtil)
+	h.MaintenanceReport.RegisterRoutes(api)
 
 	app.Get("/health", func(c fiber.Ctx) error {
 		return c.JSON(fiber.Map{

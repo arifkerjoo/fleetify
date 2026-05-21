@@ -29,10 +29,10 @@ func (h *VehicleHandler) RegisterRoutes(api fiber.Router) {
 	vehicles.Get("", h.GetAllVehicles)
 	vehicles.Get("/:id", h.GetVehicleByID)
 
-	// Admin-only routes
-	vehicles.Post("", middleware.RequireRoleMiddleware("admin"), h.CreateVehicle)
-	vehicles.Put("/:id", middleware.RequireRoleMiddleware("admin"), h.UpdateVehicle)
-	vehicles.Delete("/:id", middleware.RequireRoleMiddleware("admin"), h.DeleteVehicle)
+	// approval role only
+	vehicles.Post("", middleware.RequireRoleMiddleware("approval"), h.CreateVehicle)
+	vehicles.Put("/:id", middleware.RequireRoleMiddleware("approval"), h.UpdateVehicle)
+	vehicles.Delete("/:id", middleware.RequireRoleMiddleware("approval"), h.DeleteVehicle)
 }
 
 func (h *VehicleHandler) GetAllVehicles(c fiber.Ctx) error {

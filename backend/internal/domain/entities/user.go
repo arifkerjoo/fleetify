@@ -10,8 +10,8 @@ import (
 type UserRole string
 
 const (
-	RoleSuperAdmin UserRole = "SA"
-	RoleApproval   UserRole = "APPROVAL"
+	RoleSA       UserRole = "SA"
+	RoleApproval UserRole = "APPROVAL"
 )
 
 type BaseModel struct {

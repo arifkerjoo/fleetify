@@ -26,11 +26,9 @@ func (h *MasterItemHandler) RegisterRoutes(api fiber.Router) {
 	items := api.Group("/master-items")
 	items.Use(middleware.JWTMiddleware(h.jwtUtil))
 
-	// All authenticated users can read
 	items.Get("", h.GetAllMasterItems)
 	items.Get("/:id", h.GetMasterItemByID)
 
-	// Admin-only write operations
 	items.Post("", middleware.RequireRoleMiddleware("admin"), h.CreateMasterItem)
 	items.Put("/:id", middleware.RequireRoleMiddleware("admin"), h.UpdateMasterItem)
 	items.Delete("/:id", middleware.RequireRoleMiddleware("admin"), h.DeleteMasterItem)

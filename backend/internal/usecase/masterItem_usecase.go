@@ -57,7 +57,7 @@ func (u *masterItemUsecase) CreateMasterItem(
 	}
 
 	if err := u.masterItemRepo.Create(masterItem); err != nil {
-		return nil, errors.New("failed to create master item")
+		return nil, errors.New("gagal create master item")
 	}
 
 	return masterItem.ToResponse(), nil
@@ -91,7 +91,7 @@ func (u *masterItemUsecase) GetAllMasterItems(
 	)
 
 	if err != nil {
-		return nil, 0, errors.New("failed to fetch master items")
+		return nil, 0, errors.New("gagal fetch master items")
 	}
 
 	responses := make([]entities.MasterItemResponse, len(masterItems))
@@ -130,7 +130,7 @@ func (u *masterItemUsecase) UpdateMasterItem(
 	}
 
 	if err := u.masterItemRepo.Update(masterItem); err != nil {
-		return nil, errors.New("failed to update master item")
+		return nil, errors.New("gagal update master item")
 	}
 
 	return masterItem.ToResponse(), nil
@@ -148,7 +148,7 @@ func (u *masterItemUsecase) DeleteMasterItem(id uuid.UUID) error {
 	}
 
 	if err := u.masterItemRepo.Delete(id); err != nil {
-		return errors.New("failed to delete master item")
+		return errors.New("gagal delete master item")
 	}
 
 	return nil
